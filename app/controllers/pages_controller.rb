@@ -25,19 +25,25 @@ class PagesController < ApplicationController
       render :new
     end 
   end
-#PUT /PATCH /pages/:id
-def update
-  @page = Page.find(params[:id])
+  #PUT /PATCH /pages/:id
+  def update
+    @page = Page.find(params[:id])
 
-  if @page.update(page_params)
-    redirect_to page_path(@page)
-  else 
-    render :edit
+    if @page.update(page_params)
+      redirect_to page_path(@page)
+    else 
+      render :edit
+    end 
   end 
-end 
+
+  #DELETE /pages/:id
+  def destroy 
+    Page.find(params[:id]).destroy 
+    redirect_to pages_path
+  end 
 
   private 
   def page_params
     params.require(:page).permit(:body, :author, :title)
-  end 
-end
+    end 
+  end
